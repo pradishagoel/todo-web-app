@@ -5,15 +5,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/pradishagoel/todo-web-app.git']]])
-                }
             }
-
+        }
 
         stage('Build') {
             steps {
                 script {
-                    sh 'npm install'
-                    sh 'npm run build' // Adjust based on your build script
+                    powershell 'npm install'
+                    powershell 'npm run build' // Adjust based on your build script
                 }
             }
         }
@@ -21,7 +20,8 @@ pipeline {
         stage('Dockerize') {
             steps {
                 script {
-                    sh 'docker build -t todo-web-app .'
+                    // Use Docker Desktop for Windows
+                    powershell 'docker build -t todo-web-app .'
                 }
             }
         }
@@ -29,9 +29,9 @@ pipeline {
         stage('Push to Registry') {
             steps {
                 script {
-                    sh 'docker login -u your-docker-username -p your-docker-password your-docker-registry'
-                    sh 'docker tag todo-web-app:latest your-docker-registry/todo-web-app:latest'
-                    sh 'docker push your-docker-registry/todo-web-app:latest'
+                    powershell 'docker login -u pradishagoel -p Abcd@1234'
+                    powershell 'docker tag todo-web-app:latest pradishagoel/todo-web-app:latest'
+                    powershell 'docker push pradishagoel/todo-web-app:latest'
                 }
             }
         }
@@ -39,10 +39,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    powershell 'ssh your-server "docker pull your-docker-registry/todo-web-app:latest ; docker run -d -p 80:3000 your-docker-registry/todo-web-app:latest"'
+                    powershell "docker pull pradishagoel/todo-web-app:latest"
+                    powershell "docker run -d -p 80:3000 pradishagoel/todo-web-app:latest"
                 }
             }
         }
     }
 }
-
