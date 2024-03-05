@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:14'
-        }
-    }
+    agent any // Use "any" as the agent type
 
     stages {
         stage('Checkout') {
