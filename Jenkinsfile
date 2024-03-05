@@ -39,11 +39,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'ssh your-server "docker pull your-docker-registry/todo-web-app:latest && docker run -d -p 80:3000 your-docker-registry/todo-web-app:latest"'
+                    powershell 'ssh your-server "docker pull your-docker-registry/todo-web-app:latest ; docker run -d -p 80:3000 your-docker-registry/todo-web-app:latest"'
                 }
             }
         }
-
     }
 }
 
