@@ -8,9 +8,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout([$class: 'GitSCM', branches: [[name: 'your-branch-name']], userRemoteConfigs: [[url: 'https://github.com/pradishagoel/todo-web-app.git']]])
+                }
             }
-        }
+
 
         stage('Build') {
             steps {
