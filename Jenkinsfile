@@ -13,10 +13,9 @@ pipeline {
                 script {
                     powershell 'npm install'
                     powershell 'npm run build' // Adjust based on your build script
-                }
             }
         }
-
+    }
         stage('Dockerize') {
             steps {
                 script {
