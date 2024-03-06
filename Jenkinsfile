@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     powershell "docker pull pradishagoel/todo-web-app:latest"
-                    powershell "docker run -d -p 80:3000 pradishagoel/todo-web-app:latest"
+                    powershell "docker run -d -p 8080:3000 pradishagoel/todo-web-app:latest"
                 }
             }
         }
